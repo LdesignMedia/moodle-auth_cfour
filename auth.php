@@ -69,7 +69,7 @@ class auth_plugin_cfour extends auth_plugin_base {
         global $DB;
         $sso_code = required_param('sso_code', PARAM_RAW);
 
-        if ($user = $DB->get_record('user', ['username' => $username])) {
+        if ($user = $DB->get_record('user', ['username' => $username , 'auth' => $this->authtype])) {
 
             // Validate password.
             if($sso_code == \auth_cfour\helper::encrypt($user->id . '+' . $user->username)){
