@@ -17,8 +17,9 @@
 /**
  * Admin settings and defaults.
  *
- * @package auth_none
- * @copyright  2017 Stephen Bourget
+ * @package    auth_cfour
+ * @copyright  2019-02-22  Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author     Luuk Verhoeven
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,11 +28,12 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
 
     // Introductory explanation.
-    $settings->add(new admin_setting_heading('auth_none/pluginname', '',
-        new lang_string('auth_nonedescription', 'auth_none')));
+    $settings->add(new admin_setting_heading('auth_cfour/pluginname', '',
+        new lang_string('auth_cfourdescription', 'auth_cfour')));
 
+    $settings->add(new admin_setting_configtext('auth_cfour/key' , get_string('setting:key' , 'auth_cfour') , '' ,'ENCRYPTION_KEY'));
     // Display locking / mapping of profile fields.
-    $authplugin = get_auth_plugin('none');
+    $authplugin = get_auth_plugin('cfour');
     display_auth_lock_options($settings, $authplugin->authtype, $authplugin->userfields,
         get_string('auth_fieldlocks_help', 'auth'), false, false);
 }

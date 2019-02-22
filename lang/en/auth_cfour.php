@@ -15,13 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_none', language 'en'.
+ * Strings for component 'auth_cfour', language 'en'.
  *
- * @package   auth_none
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    auth_cfour
+ * @copyright  2019-02-22  Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author     Luuk Verhoeven
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['auth_nonedescription'] = 'Users can sign in and create valid accounts immediately, with no authentication against an external server and no confirmation via email.  Be careful using this option - think of the security and administration problems this could cause.';
-$string['pluginname'] = 'No authentication';
-$string['privacy:metadata'] = 'The No authentication plugin does not store any personal data.';
+$string['auth_cfourdescription'] = 'A custom SSO sign-in plugin, build for C4 software.';
+$string['pluginname'] = 'C4 Software authentication';
+$string['privacy:metadata'] = 'The cfour authentication plugin does not store any personal data.';
+
+// Settings.
+$string['setting:key'] = 'String used for encryption';
+
+// Error.
+$string['error:credentails_incorrect'] = 'Credentails are incorrect! error_code:{$a->reason}.';

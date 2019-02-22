@@ -17,13 +17,14 @@
 /**
  * Version information
  *
- * @package    auth_none
- * @copyright  2011 Petr Skoda (http://skodak.org)
+ * @package    auth_cfour
+ * @copyright  2019-02-22  Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author     Luuk Verhoeven
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018120300;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2018112800;        // Requires this Moodle version
-$plugin->component = 'auth_none';       // Full name of the plugin (used for diagnostics)
+$plugin->version = 2019022202;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires = 2018012800;        // Requires this Moodle version.
+$plugin->component = 'auth_cfour';       // Full name of the plugin (used for diagnostics).

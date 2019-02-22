@@ -14,16 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Privacy Subsystem implementation for auth_none.
+ * Privacy Subsystem implementation for auth_cfour.
  *
- * @package    auth_none
- * @copyright  2018 Carlos Escobedo <carlos@moodle.com>
+ * @package    auth_cfour
+ * @copyright  2019-02-22  Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author     Luuk Verhoeven
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace auth_none\privacy;
+
+namespace auth_cfour\privacy;
 defined('MOODLE_INTERNAL') || die();
+
 /**
- * Privacy Subsystem for auth_none implementing null_provider.
+ * Privacy Subsystem for auth_cfour implementing null_provider.
  *
  * @copyright  2018 Carlos Escobedo <carlos@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

@@ -15,34 +15,38 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Anobody can login with any password.
+ * Base authentication class
  *
- * @package auth_none
- * @author Martin Dougiamas
- * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @package    auth_cfour
+ * @copyright  2019-02-22  Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author     Luuk Verhoeven
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->libdir.'/authlib.php');
+require_once($CFG->libdir . '/authlib.php');
 
 /**
  * Plugin for no authentication.
  */
-class auth_plugin_none extends auth_plugin_base {
+class auth_plugin_cfour extends auth_plugin_base {
 
     /**
      * Constructor.
+     *
+     * @throws dml_exception
      */
     public function __construct() {
-        $this->authtype = 'none';
-        $this->config = get_config('auth_none');
+        $this->authtype = 'cfour';
+        $this->config = get_config('auth_cfour');
     }
 
     /**
      * Old syntax of class constructor. Deprecated in PHP7.
      *
      * @deprecated since Moodle 3.1
+     * @throws dml_exception
      */
     public function auth_plugin_none() {
         debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
@@ -55,14 +59,25 @@ class auth_plugin_none extends auth_plugin_base {
      *
      * @param string $username The username
      * @param string $password The password
+     *
      * @return bool Authentication success or failure.
+     * @throws dml_exception
+     * @throws coding_exception
      */
-    function user_login ($username, $password) {
-        global $CFG, $DB;
-        if ($user = $DB->get_record('user', array('username'=>$username, 'mnethostid'=>$CFG->mnet_localhost_id))) {
-            return validate_internal_user_password($user, $password);
+    function user_login($username, $password) {
+
+        global $DB;
+        $sso_code = required_param('sso_code', PARAM_RAW);
+
+        if ($user = $DB->get_record('user', ['username' => $username])) {
+
+            // Validate password.
+            if($sso_code == \auth_cfour\helper::encrypt($user->id . '+' . $user->username)){
+                return true;
+            }
         }
-        return true;
+
+        return false;
     }
 
     /**
@@ -70,21 +85,22 @@ class auth_plugin_none extends auth_plugin_base {
      *
      * called when the user password is updated.
      *
-     * @param  object  $user        User table object
-     * @param  string  $newpassword Plaintext password
+     * @param  object $user        User table object
+     * @param  string $newpassword Plaintext password
+     *
      * @return boolean result
      *
      */
     function user_update_password($user, $newpassword) {
-        $user = get_complete_user_data('id', $user->id);
-        // This will also update the stored hash to the latest algorithm
-        // if the existing hash is using an out-of-date algorithm (or the
-        // legacy md5 algorithm).
-        return update_internal_user_password($user, $newpassword);
+        return false;
     }
 
+    /**
+     * Indicates if password hashes should be stored in local moodle database.
+     * @return bool true means md5 password hash stored in user table, false means flag 'not_cached' stored there instead
+     */
     function prevent_local_passwords() {
-        return false;
+        return true;
     }
 
     /**
@@ -103,7 +119,7 @@ class auth_plugin_none extends auth_plugin_base {
      * @return bool
      */
     function can_change_password() {
-        return true;
+        return false;
     }
 
     /**
@@ -122,7 +138,7 @@ class auth_plugin_none extends auth_plugin_base {
      * @return bool
      */
     function can_reset_password() {
-        return true;
+        return false;
     }
 
     /**
