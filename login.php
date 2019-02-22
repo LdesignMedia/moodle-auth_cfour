@@ -19,7 +19,7 @@
  * Users needs to have auth -> cfour
  *
  * Sample request:
- * http://moodle362.web04.webv.nl/auth/cfour/login.php?sso_username=user1&sso_code=Ly5Y%2FiH9cNI%3D&wantsurl=%2Fcourse%2Fview.php%3Fid%3D2
+ * /auth/cfour/login.php?sso_username=user1&sso_code=Ly5Y%2FiH9cNI%3D&wantsurl=%2Fcourse%2Fview.php%3Fid%3D2
  *
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *

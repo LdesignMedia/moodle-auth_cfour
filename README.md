@@ -26,27 +26,51 @@
 ## Usage
 1. A user should already be created in Moodle. You can add a new user with the API, make sure **auth** property must have the value `cfour` for security reasons. 
 2. Build a link on a external system, see the example below.
-```php
 
- /**
-  * Encrypt a string
-  *
-  * @param string $string
-  *
-  * @return string
-  * @throws \dml_exception
-  */
- function encrypt(string $string)
- {
-     $cipher_alg = MCRYPT_TRIPLEDES;
-     $iv = mcrypt_create_iv(mcrypt_get_iv_size($cipher_alg, MCRYPT_MODE_ECB), MCRYPT_RAND);
-     $encrypted_string = mcrypt_encrypt($cipher_alg, get_config('auth_cfour' , 'key'), $string, MCRYPT_MODE_ECB, $iv);
-     $sso_code = base64_encode($encrypted_string);
-     return $sso_code;
- }
+```php
+<?php
+#External system, samplecode
+define('SHARED_AUTHENTICION_KEY' , 'LONG_KEY_HERE');
+
+/**
+* Encrypt a string
+*
+* @param string $string
+*
+* @return string
+*/
+function encrypt(string $string)
+{
+ $cipher_alg = MCRYPT_TRIPLEDES;
+ $iv = mcrypt_create_iv(mcrypt_get_iv_size($cipher_alg, MCRYPT_MODE_ECB), MCRYPT_RAND);
+ $encrypted_string = mcrypt_encrypt($cipher_alg, SHARED_AUTHENTICION_KEY, $string, MCRYPT_MODE_ECB, $iv);
+ $sso_code = base64_encode($encrypted_string);
+ return $sso_code;
+}
+
+// Building the link.
+$domain = 'https://moodle.test.domain.com/';
+$plugin = 'auth/cfour/login.php';
+
+// The user that exists in Moodle and have `cfour` auth property in there account.
+$moodleusername = 'student1';
+$moodleuserid = 2;
+
+$params = [
+    'sso_username' => $moodleusername,
+    'sso_code' => encrypt($moodleuserid . '+' . $moodleusername),
+    'wantsurl' => '/course/view.php?id=2'
+];
+
+// Make sure all params get urlencoded!
+$url = $domain . $plugin . http_build_query($params);
+
+// https://moodle.test.domain.com/auth/cfour/login.phpsso_username=student1&sso_code=&wantsurl=%2Fcourse%2Fview.php%3Fid%3D2
+header('Location: ' . $url);
+die;
 
 ```
-3. Use the link where you want. There is no expiry date implemented.
+3. Use the link where you want. Keep in mind there is no expiry date implemented.
  
 
 ## Security
