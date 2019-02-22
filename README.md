@@ -52,7 +52,7 @@ function encrypt(string $string)
 $domain = 'https://moodle.test.domain.com/';
 $plugin = 'auth/cfour/login.php';
 
-// The user that exists in Moodle and have `cfour` auth property in there account.
+// The user that exists in Moodle and has `cfour` auth property in there account.
 $moodleusername = 'student1';
 $moodleuserid = 2;
 
