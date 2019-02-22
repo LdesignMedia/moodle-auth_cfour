@@ -23,12 +23,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['auth_cfourdescription'] = 'A custom SSO sign-in plugin, build for C4 software.';
-$string['pluginname'] = 'C4 Software authentication';
+$string['auth_cfourdescription'] = 'Login user directly, based on a given link.';
+$string['pluginname'] = 'Direct SSO link authentication';
 $string['privacy:metadata'] = 'The cfour authentication plugin does not store any personal data.';
 
 // Settings.
-$string['setting:key'] = 'String used for encryption';
+$string['setting:key'] = 'Authentication string, used for encryption';
 
 // Error.
 $string['error:credentails_incorrect'] = 'Credentails are incorrect! error_code:{$a->reason}.';
