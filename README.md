@@ -50,7 +50,7 @@ function encrypt(string $string)
 
 // Building the link.
 $domain = 'https://moodle.test.domain.com/';
-$plugin = 'auth/cfour/login.php';
+$plugin = 'auth/cfour/login.php?';
 
 // The user that exists in Moodle and has `cfour` auth property in there account.
 $moodleusername = 'student1';
