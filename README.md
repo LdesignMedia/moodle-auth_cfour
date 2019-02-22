@@ -65,7 +65,7 @@ $params = [
 // Make sure all params get urlencoded!
 $url = $domain . $plugin . http_build_query($params);
 
-// https://moodle.test.domain.com/auth/cfour/login.phpsso_username=student1&sso_code=&wantsurl=%2Fcourse%2Fview.php%3Fid%3D2
+// https://moodle.test.domain.com/auth/cfour/login.php?sso_username=student1&sso_code=&wantsurl=%2Fcourse%2Fview.php%3Fid%3D2
 header('Location: ' . $url);
 die;
 
