@@ -63,16 +63,22 @@ class auth_plugin_cfour extends auth_plugin_base {
      * @return bool Authentication success or failure.
      * @throws dml_exception
      * @throws coding_exception
+     * @throws moodle_exception
      */
     function user_login($username, $password) {
 
         global $DB;
         $sso_code = required_param('sso_code', PARAM_RAW);
 
-        if ($user = $DB->get_record('user', ['username' => $username , 'auth' => $this->authtype])) {
+        if ($user = $DB->get_record('user', ['username' => $username ])) {
+
+            if($user->auth !=  $this->authtype){
+                print_error('error:authtype' , 'auth_cfour');
+            }
 
             // Validate password.
-            if($sso_code == \auth_cfour\helper::encrypt($user->id . '+' . $user->username)){
+            $correctcode =  \auth_cfour\helper::get_code($user->id , $user->username);
+            if($sso_code === $correctcode){
                 return true;
             }
         }

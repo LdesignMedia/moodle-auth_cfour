@@ -27,22 +27,18 @@
 namespace auth_cfour;
 defined('MOODLE_INTERNAL') || die();
 
- class helper{
+class helper {
 
-     /**
-      * Encrypt a string
-      *
-      * @param string $string
-      *
-      * @return string
-      * @throws \dml_exception
-      */
-     public static function encrypt(string $string)
-     {
-         $cipher_alg = MCRYPT_TRIPLEDES;
-         $iv = mcrypt_create_iv(mcrypt_get_iv_size($cipher_alg, MCRYPT_MODE_ECB), MCRYPT_RAND);
-         $encrypted_string = mcrypt_encrypt($cipher_alg, get_config('auth_cfour' , 'key'), $string, MCRYPT_MODE_ECB, $iv);
-         $sso_code = base64_encode($encrypted_string);
-         return $sso_code;
-     }
- }
+    /**
+     * Get sha256 code
+     *
+     * @param int    $userid
+     * @param string $username
+     *
+     * @return string
+     * @throws \dml_exception
+     */
+    public static function get_code(int $userid, string $username) : string {
+        return hash('sha256', get_config('auth_cfour', 'key') . '|' . $userid . '|' . $username);
+    }
+}

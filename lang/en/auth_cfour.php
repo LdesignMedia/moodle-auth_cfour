@@ -32,3 +32,4 @@ $string['setting:key'] = 'Authentication string, used for encryption';
 
 // Error.
 $string['error:credentails_incorrect'] = 'Credentails are incorrect! error_code:{$a->reason}.';
+$string['error:authtype'] = 'Authtype of this user isn\'t matching!';
